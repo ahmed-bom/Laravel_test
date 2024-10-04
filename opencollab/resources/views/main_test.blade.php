@@ -7,9 +7,9 @@
      <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <x-search_bar>
+    <x-user_page>
         <x-File_upload></x-File_upload>
-    </x-search_bar>
+    </x-user_page>
     
 </body>
 </html>
