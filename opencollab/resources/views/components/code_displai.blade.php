@@ -1,5 +1,4 @@
 <!-- Prism.js theme CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-twilight.css"

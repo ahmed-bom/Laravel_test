@@ -1,6 +1,4 @@
-<!-- component -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
+<!-- component -->  
 <div class="content-center grid justify-items-center w-full h-1/2" >
     <div class="w-[400px]  relative border-dashed border-2 border-sky-500 rounded-lg p-6 " id="dropzone">
     <input type="file" class="absolute inset-0 w-full h-full opacity-0 z-50" />

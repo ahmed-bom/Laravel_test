@@ -1,5 +1,3 @@
-  <script src="https://cdn.tailwindcss.com"></script>
-
 <div class="bg-white p-4 rounded-lg">
   <div class="relative bg-inherit">
     <input

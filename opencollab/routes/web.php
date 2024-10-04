@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('login_test');
+    return view('login_p');
 });
 
 Route::get('/main', function () {
-    return view('main_test');
+    return view('main_p');
 });
 

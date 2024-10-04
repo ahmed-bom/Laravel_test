@@ -1,5 +1,3 @@
-   <script src="https://cdn.tailwindcss.com"></script>
-
 <footer class="w-full bg-gray-900">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!--Grid-->

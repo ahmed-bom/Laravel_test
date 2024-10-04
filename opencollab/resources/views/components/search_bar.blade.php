@@ -1,7 +1,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
     <div
-        class="relative isolate overflow-hidden bg-white px-6 py-20 text-center sm:px-16 sm:shadow-sm">
+        class="relative isolate overflow-hidden  px-6 py-20 text-center sm:px-16 sm:shadow-sm">
         <p class="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Didn't find component you were looking for?
         </p>

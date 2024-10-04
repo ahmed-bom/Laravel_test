@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
-		*{
-			margin: 0;
-			padding: 0;
-		}
+
 /*Start Animations*/
 @-webkit-keyframes animatetop {
 	from {
@@ -174,28 +164,3 @@
 /*
 -- End BackGround Animation 
 */
-	</style>
-</head>
-<body>
-	  
-
-	<!--Start Background Animation Body-->
-		<div class="area">
-			<ul class="circles">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-		</div>
-		<!--End Background Animation Body-->
-		
-
-</body>
-</html>
