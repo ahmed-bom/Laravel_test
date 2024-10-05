@@ -97,9 +97,9 @@
                 <div class="lg:w-1/2">
                     <label for="inviteFriend" class="block text-sm font-medium text-gray-700 mb-2">Invite Friend</label>
                     <input type="text" id="inviteFriend" class="w-full p-2 mb-4 rounded-lg focus:outline-none border-2 border-gray-100 focus:border-violet-300 transition-colors duration-300">
-                </div>  
+                </div>
             </div>
-            {{ $slot }}
+            {{-- {{ $slot }} --}}
 
             <div class="flex justify-end">
                 <button class="bg-gradient-to-r from-violet-300 to-indigo-300  border border-fuchsia-00 hover:border-violet-100 text-white font-semibold py-2 px-4 rounded-md mr-2" onclick="createProject()">Create</button>

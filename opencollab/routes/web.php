@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('login_p');
+    return view('components.login2');
 });
 
 Route::get('/main', function () {
@@ -17,3 +17,9 @@ Route::get('/login2', function () {
     return view('components.login2');
 });
 
+Route::get('/user', function () {
+    return view('components.user_page');
+});
+Route::get('/header', function () {
+    return view('components.header');
+});
