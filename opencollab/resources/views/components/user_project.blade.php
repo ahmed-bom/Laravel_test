@@ -22,17 +22,8 @@
       </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-      <!-- Card 1 -->
-      <div class="backdrop-blur-sm bg-white/20 p-6 rounded-md shadow-sm cursor-pointer border-2 border-gray-50 hover:border-violet-200 hover:border-2 transition-colors duration-300">
-        <h2 class="text-xl font-semibold mb-4">Project 1</h2>
-        <p class="text-gray-700">Description of Project 2 goes here. You can provide more details about the project.</p>
-        <div class="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-4 xl:mt-4">
-          <dd class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-1.5">
-          </dd>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- project list -->
+  {{$project}}
   <!-- Modal -->
     <div id="myModal" class="fixed inset-0 z-10 overflow-hidden backdrop-blur-lg hidden flex items-center justify-center transition-transform duration-300">
         <div class="modal-container p-6 backdrop-blur-sm bg-white/90 w-11/12 sm:w-11/12 md:w-8/12 lg:w-6/12 rounded-md shadow-sm">

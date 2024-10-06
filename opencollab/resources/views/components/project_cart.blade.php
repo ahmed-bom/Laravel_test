@@ -1,13 +1,12 @@
-<script src="https://cdn.tailwindcss.com"></script>
 
 <!-- component -->
-<div class="my-16 py-16 h-screen">
+
   <script
     src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js"
     defer
   ></script>
   <div
-    class="mx-auto w-3/4"
+    class="mx-auto w-full"
     x-data="{ open: false, color: false }"
     @keydown.escape="open = false"
     @click.away="open = false"
@@ -97,4 +96,4 @@
       </div>
     </div>
   </div>
-</div>
+
