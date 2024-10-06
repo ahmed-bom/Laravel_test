@@ -1,6 +1,4 @@
-<!-- modifait  -->
-<!-- component -->
-   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="bg-gradient-to-r from-violet-100 to-indigo-100 flex items-center justify-center h-screen">
   <div class="w-11/12 sm:w-11/12 md:w-8/12 lg:w-6/12 backdrop-blur-sm bg-white/40 p-6 rounded-lg shadow-sm border-violet-200 border">
@@ -30,53 +28,6 @@
         <p class="text-gray-700">Description of Project 2 goes here. You can provide more details about the project.</p>
         <div class="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-4 xl:mt-4">
           <dd class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-1.5">
-            <img src="https://placekitten.com/48/48" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/49/49" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/50/50" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/51/51" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/52/52" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-          </dd>
-        </div>
-      </div>
-      <!-- Card 2 -->
-      <div class="backdrop-blur-sm bg-white/20 p-6 rounded-md shadow-sm cursor-pointer border-2 border-gray-50 hover:border-violet-200 hover:border-2 transition-colors duration-300">
-        <h2 class="text-xl font-semibold mb-4">Project 2</h2>
-        <p class="text-gray-700">Description of Project 2 goes here. You can provide more details about the project.</p>
-        <div class="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-4 xl:mt-4">
-          <dd class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-1.5">
-            <img src="https://placekitten.com/48/48" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/49/49" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/50/50" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/51/51" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/52/52" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-          </dd>
-        </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="backdrop-blur-sm bg-white/20 p-6 rounded-md shadow-sm cursor-pointer border-2 border-gray-50 hover:border-violet-200 hover:border-2 transition-colors duration-300">
-        <h2 class="text-xl font-semibold mb-4">Project 3</h2>
-        <p class="text-gray-700">Description of Project 2 goes here. You can provide more details about the project.</p>
-        <div class="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-4 xl:mt-4">
-          <dd class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-1.5">
-            <img src="https://placekitten.com/48/48" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/49/49" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/50/50" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/51/51" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/52/52" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-          </dd>
-        </div>
-      </div>
-      <!-- Card 4 -->
-      <div class="backdrop-blur-sm bg-white/20 p-6 rounded-md shadow-sm cursor-pointer border-2 border-gray-50 hover:border-violet-200 hover:border-2 transition-colors duration-300">
-        <h2 class="text-xl font-semibold mb-4">Project 4</h2>
-        <p class="text-gray-700">Description of Project 2 goes here. You can provide more details about the project.</p>
-        <div class="col-start-2 row-start-1 row-end-3 sm:mt-4 lg:mt-4 xl:mt-4">
-          <dd class="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-1.5">
-            <img src="https://placekitten.com/48/48" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/49/49" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/50/50" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/51/51" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
-            <img src="https://placekitten.com/52/52" alt="" class="w-6 h-6 rounded-full bg-violet-100" loading="lazy" >
           </dd>
         </div>
       </div>
@@ -97,10 +48,23 @@
                 <div class="lg:w-1/2">
                     <label for="inviteFriend" class="block text-sm font-medium text-gray-700 mb-2">Invite Friend</label>
                     <input type="text" id="inviteFriend" class="w-full p-2 mb-4 rounded-lg focus:outline-none border-2 border-gray-100 focus:border-violet-300 transition-colors duration-300">
-                </div>
+                </div>  
             </div>
-            {{-- {{ $slot }} --}}
+            <!-- fill -->
+                <div class="relative h-1/4 m-5 border-dotted  rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center">
 
+                  <div class="absolute">
+                    
+                    <div class="flex flex-col items-center">
+                      <i class="fa fa-folder-open fa-4x text-blue-700"></i>
+                    <span class="block text-gray-400 font-normal">Attach you files here</span>
+                    </div>
+                  </div>
+
+                  <input type="file" class="h-full w-full opacity-0" name="">
+
+                </div>
+            <!-- ///// -->
             <div class="flex justify-end">
                 <button class="bg-gradient-to-r from-violet-300 to-indigo-300  border border-fuchsia-00 hover:border-violet-100 text-white font-semibold py-2 px-4 rounded-md mr-2" onclick="createProject()">Create</button>
                 <button class="bg-gradient-to-r from-gray-100 to-slate-200  border border-fuchsia-00 hover:border-violet-100 text-gray-800 font-semibold py-2 px-4 rounded-md transition-colors duration-300" onclick="closeModal()">Cancel</button>

@@ -1,5 +1,4 @@
 
-
   <div class='logo-container'>
       <img src='path/to/logo.png' alt='Logo' class='logo' />
   </div>
