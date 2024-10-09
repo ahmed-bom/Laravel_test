@@ -25,44 +25,29 @@
   <!-- project list -->
   {{$project}}
   <!-- Modal -->
-    <div id="myModal" class="fixed inset-0 z-10 overflow-hidden backdrop-blur-lg hidden flex items-center justify-center transition-transform duration-300">
-        <div class="modal-container p-6 backdrop-blur-sm bg-white/90 w-11/12 sm:w-11/12 md:w-8/12 lg:w-6/12 rounded-md shadow-sm">
+    <div id="myModal" class="fixed w-full  z-10 overflow-hidden backdrop-blur-lg hidden flex items-center justify-center transition-transform duration-300">
+        <div class="modal-container  backdrop-blur-sm bg-white/90 rounded-md shadow-sm">
             <h2 class="text-2xl font-semibold mb-6">Create New Project</h2>
             <label for="projectName" class="block text-sm font-medium text-gray-700 mb-2">Project Name</label>
             <input type="text" id="projectName" class="w-full p-2 mb-4 rounded-lg focus:outline-none border-2 border-gray-100 focus:border-violet-300 transition-colors duration-300">
-            <!-- Flex layout for lg and md screens -->
-            <div class="lg:flex">
-                <div class="lg:w-1/2 lg:pr-4">
-                    <label for="projectDescription" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                    <input id="projectDescription" class="w-full p-2 mb-4 rounded-lg focus:outline-none border-2 border-gray-100 focus:border-violet-300 transition-colors duration-300"></input>
-                </div>
-                <div class="lg:w-1/2">
-                    <label for="inviteFriend" class="block text-sm font-medium text-gray-700 mb-2">Invite Friend</label>
-                    <input type="text" id="inviteFriend" class="w-full p-2 mb-4 rounded-lg focus:outline-none border-2 border-gray-100 focus:border-violet-300 transition-colors duration-300">
-                </div>  
-            </div>
             <!-- fill -->
-                <div class="relative h-1/4 m-5 border-dotted  rounded-lg border-dashed border-2 border-blue-700 bg-gray-100 flex justify-center items-center">
-
-                  <div class="absolute">
-                    
-                    <div class="flex flex-col items-center">
+                <div id="fill">
+                  <div >
+                    <div>
                       <i class="fa fa-folder-open fa-4x text-blue-700"></i>
-                    <span class="block text-gray-400 font-normal">Attach you files here</span>
+                      <span class="block text-gray-400 font-normal">Attach you files here</span>
                     </div>
                   </div>
-
                   <input type="file" class="h-full w-full opacity-0" name="">
-
                 </div>
             <!-- ///// -->
-            <div class="flex justify-end">
+            <div class="flex justify-end px-3">
                 <button class="bg-gradient-to-r from-violet-300 to-indigo-300  border border-fuchsia-00 hover:border-violet-100 text-white font-semibold py-2 px-4 rounded-md mr-2" onclick="createProject()">Create</button>
                 <button class="bg-gradient-to-r from-gray-100 to-slate-200  border border-fuchsia-00 hover:border-violet-100 text-gray-800 font-semibold py-2 px-4 rounded-md transition-colors duration-300" onclick="closeModal()">Cancel</button>
             </div>
         </div>
     </div>
-</div>
+
 <script>
         // Function to open the modal
         function openModal() {
