@@ -27,7 +27,7 @@
         </svg>
       </div>
       <div class="px-3 mr-auto">
-        <h4 class="font-bold">item 1</h4>
+        <h4 class="font-bold">{{$titre}}</h4>
         <small class="text-xs">Lorem ipsum dolor sit amet,...</small>
       </div>
       <div class="relative">

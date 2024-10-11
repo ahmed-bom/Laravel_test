@@ -11,6 +11,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/user', function () {
+    return view('user',['projects' => ['laravel_1','project c','test js','opencollab'],"name"=>"ahmed"]);
+})->middleware(['auth', 'verified'])->name('user');
+
+
+Route::get('/favorite', function () {
+    return view('favorite',['projects' => ['laravel_1','project c','test js','opencollab']]);
+})->middleware(['auth', 'verified'])->name('favorite');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
