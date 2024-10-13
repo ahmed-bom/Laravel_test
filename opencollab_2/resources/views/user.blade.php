@@ -136,7 +136,7 @@
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <div id="settingsMenu" class="hidden absolute right-0 mt-2 w-48 rounded-lg shadow-lg bg-white">
-                            <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                 <i class="fas fa-cog mr-2"></i>Settings
                             </a>
                             <button onclick="showDeleteModal()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">
@@ -162,148 +162,119 @@
             </div>
 
             <!-- Projects Section -->
-            <div class="mt-8">
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-semibold text-gray-900">Projects</h2>
-                        <button onclick="showAddProjectModal()" class="px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition">
-                            <i class="fas fa-plus mr-2"></i>Add Project
-                        </button>
-                    </div>
+           <!-- Projects Section -->
+<div class="mt-8">
+    <div class="bg-white rounded-2xl shadow-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-900">Projects</h2>
+            <button onclick="showAddProjectModal()" class="px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition">
+                <i class="fas fa-plus mr-2"></i>Add Project
+            </button>
+        </div>
 
-                    <!-- Search Bar -->
-                    <div class="mb-6">
-                        <div class="relative">
-                            <input type="text" placeholder="Search projects..."
-                                   class="w-full px-5 py-3 pr-12 border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                            <button class="absolute right-2 top-2 p-2 text-gray-400 hover:text-primary">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <div class="relative">
+                <input type="text" placeholder="Search projects..."
+                       class="w-full px-5 py-3 pr-12 border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                <button class="absolute right-2 top-2 p-2 text-gray-400 hover:text-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
 
-                    <!-- Projects Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Sample Project Card -->
-                        <div class="project-card border rounded-xl p-5">
-                            <div class="flex justify-between items-start mb-3">
-                                <h3 class="text-xl font-semibold text-gray-900">AI Chat Interface</h3>
-                                <div class="flex space-x-2">
-                                    <button class="text-gray-400 hover-edit">
-                                        <i class="fas fa-pen"></i>
-                                    </button>
-                                    <button class="text-gray-400 hover-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <p class="text-gray-600 text-sm mb-4">A modern chat interface for AI interactions.</p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <i class="far fa-file-alt text-gray-400 mr-2"></i>
-                                    <span class="text-sm text-gray-500">3 files</span>
-                                </div>
-                                <button onclick="toggleFiles(this)" class="text-primary hover:text-secondary flex items-center">
-                                    <i class="fas fa-chevron-down mr-1"></i>
-                                    View Files
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @if(count($projects) > 0)
+                @foreach ($projects as $project)
+                    <div class="project-card border rounded-xl p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-semibold text-gray-900">{{ isset($project->project_name) ? $project->project_name : 'No project name' }}</h3>
+                            <div class="flex space-x-2">
+                                <button class="text-gray-400 hover-edit">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button class="text-gray-400 hover-delete">
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                            <div class="file-list mt-4">
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">{{ isset($project->description) ? $project->description : 'No description available' }}</p>
 
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-file-code text-primary mr-2"></i>
-                                            App.tsx
-                                        </span>
-                                        <div class="flex space-x-2">
-                                            <button class="text-gray-400 hover-download">
-                                                <i class="fas fa-download"></i>
-                                            </button>
-                                            <button class="text-gray-400 hover-edit">
-                                                <i class="fas fa-pen"></i>
-                                            </button>
-                                            <button class="text-gray-400 hover-delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-file-code text-primary mr-2"></i>
-                                            App.tsx
-                                        </span>
-                                        <div class="flex space-x-2">
-                                            <button class="text-gray-400 hover-download">
-                                                <i class="fas fa-download"></i>
-                                            </button>
-                                            <button class="text-gray-400 hover-edit">
-                                                <i class="fas fa-pen"></i>
-                                            </button>
-                                            <button class="text-gray-400 hover-delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="far fa-file-alt text-gray-400 mr-2"></i>
+                                <span class="text-sm text-gray-500">{{ isset($files) ? count($files) : 'No' }} files</span>
                             </div>
+                            <button onclick="toggleFiles(this)" class="text-primary hover:text-secondary flex items-center">
+                                <i class="fas fa-chevron-down mr-1"></i>
+                                View Folder {{ isset($project->folder_name) ? ' - ' . $project->folder_name : '' }}
+                            </button>
+                        </div>
+                        <div class="file-list mt-4">
+                            @if(isset($files) && count($files) > 0)
+                                <div class="space-y-2">
+                                    @foreach($files as $file)
+                                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-file-code text-primary mr-2"></i>
+                                                {{ basename($file) }}
+                                            </span>
+                                            <div class="flex space-x-2">
+                                                <a href="#" class="text-gray-400 hover-download">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                                <form action="#" method="POST">
+                                                    <button class="text-gray-400 hover-delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p>No files uploaded for this project.</p>
+                            @endif
                         </div>
                     </div>
-                </div>
-            </div>
+                @endforeach
+            @else
+                <p>No projects found.</p>
+            @endif
         </div>
     </div>
+</div>
 
-    <!-- Add Project Modal -->
-    <div id="addProjectModal" class="modal">
-        <div class="modal-content bg-white rounded-2xl w-full max-w-md m-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-2xl font-semibold text-gray-900">Add New Project</h3>
-                    <button onclick="hideAddProjectModal()" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <form class="space-y-6">
-                    <div>
-                        <label class="compact-label block">Project Name</label>
-                        <input type="text" class="compact-input w-full">
-                    </div>
-
-                    <div>
-                        <label class="compact-label block">Description</label>
-                        <textarea class="compact-input1 w-full" rows="3"></textarea>
-                    </div>
-
-                    <!-- Project Type Radio Buttons -->
-
-                    </div>
-
-                    <!-- Compact file upload -->
-                    <div>
-                        <label class="compact-label block mb-2">Files</label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-primary transition-colors">
-                            <i class="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
-                            <p class="text-sm text-gray-500">Drag files or <button type="button" class="text-primary hover:text-secondary">browse</button></p>
-                            <input type="file" multiple class="hidden">
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end pt-4 border-t">
-                        <button type="button" onclick="hideAddProjectModal()" class="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 mr-2">Cancel</button>
-                        <button type="submit" class="px-6 py-2 bg-primary text-white text-sm rounded-lg hover:bg-secondary transition">
-                            Create Project
-                        </button>
-                    </div>
-                </form>
+<!-- Add Project Modal -->
+<div id="addProjectModal" class="modal">
+    <div class="modal-content bg-white rounded-2xl w-full max-w-md m-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-gray-900">Add New Project</h3>
+                <button onclick="hideAddProjectModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+            <form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name:</label>
+                    <input type="text" name="project_name" id="project_name" class="mt-1 p-2 block w-full border rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                    <textarea name="description" id="description" class="mt-1 p-2 block w-full border rounded-md" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="files" class="block text-sm font-medium text-gray-700">Upload Folder:</label>
+                    <input type="file" name="files[]" id="files" class="mt-1 p-2 block w-full" multiple webkitdirectory required>
+                </div>
+                <button type="submit" class="w-full px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition">Create Project</button>
+            </form>
         </div>
     </div>
-
+</div>
     <!-- Delete Account Modal -->
     <div id="deleteModal" class="modal">
         <div class="bg-white rounded-2xl p-8 w-full max-w-md m-auto">
@@ -326,41 +297,106 @@
         </div>
     </div>
     <script>
-    function toggleMenu() {
-        document.getElementById('settingsMenu').classList.toggle('hidden');
+        function toggleMenu() {
+            document.getElementById('settingsMenu').classList.toggle('hidden');
+        }
+
+        function showAddProjectModal() {
+            document.getElementById('addProjectModal').classList.add('active');
+            document.body.classList.add('modal-open');
+        }
+
+        function hideAddProjectModal() {
+            document.getElementById('addProjectModal').classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        function showDeleteModal() {
+            document.getElementById('deleteModal').classList.add('active');
+            document.body.classList.add('modal-open');
+        }
+
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        function toggleFiles(button) {
+            const fileList = button.parentElement.nextElementSibling;
+
+            fileList.classList.toggle('expanded');
+
+            if (fileList.classList.contains('expanded')) {
+                button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Files';
+            } else {
+                button.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>View Files';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    const browseButton = document.getElementById('browse-btn');
+    const dropzoneText = document.getElementById('dropzone-text');
+
+    // Trigger the file input click when the browse button is clicked
+    browseButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Trigger the file input click when clicking on the dropzone
+    dropzone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Handle file selection
+    fileInput.addEventListener('change', handleFileSelect);
+
+    function handleFileSelect() {
+        const files = Array.from(fileInput.files);
+        updateDropzoneText(files);
     }
 
-    function showAddProjectModal() {
-        document.getElementById('addProjectModal').classList.add('active');
-        document.body.classList.add('modal-open');
-    }
+    // Handle folder drag and drop
+    dropzone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropzone.classList.add('bg-gray-100'); // Change dropzone appearance on drag
+    });
 
-    function hideAddProjectModal() {
-        document.getElementById('addProjectModal').classList.remove('active');
-        document.body.classList.remove('modal-open');
-    }
+    dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('bg-gray-100'); // Revert dropzone appearance on drag leave
+    });
 
-    function showDeleteModal() {
-        document.getElementById('deleteModal').classList.add('active');
-        document.body.classList.add('modal-open');
-    }
+    dropzone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const files = Array.from(event.dataTransfer.files);
+        fileInput.files = event.dataTransfer.files; // Set the file input to the dropped files
+        updateDropzoneText(files);
+        dropzone.classList.remove('bg-gray-100'); // Reset dropzone appearance after drop
+    });
 
-    function hideDeleteModal() {
-        document.getElementById('deleteModal').classList.remove('active');
-        document.body.classList.remove('modal-open');
-    }
+    function updateDropzoneText(files) {
+        const folderNames = new Set();
 
-    function toggleFiles(button) {
-        const fileList = button.parentElement.nextElementSibling;
+        files.forEach(file => {
+            // Use webkitRelativePath to get folder paths
+            if (file.webkitRelativePath) {
+                const folderPath = file.webkitRelativePath.split('/').slice(0, -1).join('/');
+                folderNames.add(folderPath);
+            }
+        });
 
-        fileList.classList.toggle('expanded');
-
-        if (fileList.classList.contains('expanded')) {
-            button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Files';
+        // Update the dropzone text based on selected folders
+        if (folderNames.size > 0) {
+            dropzoneText.textContent = `Selected folders: ${Array.from(folderNames).join(', ')}`;
         } else {
-            button.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>View Files';
+            dropzoneText.textContent = 'Drag folders here or <button type="button" class="text-primary hover:text-secondary" id="browse-btn">browse</button>';
         }
     }
-</script>
+});
+
+
+    </script>
+
 </body>
 </html>
