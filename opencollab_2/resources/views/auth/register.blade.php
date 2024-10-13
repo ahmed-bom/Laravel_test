@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-slot name="hed_register">
-            <div id="b_login"  class="w-[230px] bg-gray-200 dark:bg-gray-700 shadow-lg overflow-hidden rounded-tl-[20px] rounded-tr-[70px] flex items-center">
-                <div  class="w-[130px] mr-3 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-tl-[20px] rounded-tr-[70px]">
+            <div id="b_login"  class="w-[230px] bg-rose-300 shadow-lg overflow-hidden rounded-tl-[20px] rounded-tr-[70px] flex items-center">
+                <div  class="w-[130px] mr-3 px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-tl-[20px] rounded-tr-[70px]">
                     register
                 </div>
                 login
@@ -58,8 +58,8 @@
 
     <!-- ------------------------- -->
     <x-slot name="hed_login">
-            <div id="b_register"  class="w-[230px] bg-gray-200 dark:bg-gray-700 shadow-lg overflow-hidden rounded-tl-[20px] rounded-tr-[70px] flex items-center">
-                <div  class="w-[130px] mr-3 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden rounded-tl-[20px] rounded-tr-[70px]">
+            <div id="b_register"  class="w-[230px] bg-rose-300 shadow-lg overflow-hidden rounded-tl-[20px] rounded-tr-[70px] flex items-center">
+                <div  class="w-[130px] mr-3 px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-tl-[20px] rounded-tr-[70px]">
                     login
                 </div>
                 register

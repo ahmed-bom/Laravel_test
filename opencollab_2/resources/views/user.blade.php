@@ -125,6 +125,7 @@
     </style>
 </head>
 <body>
+     @include('layouts.navigation')
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto">
             <!-- Profile Header -->
@@ -152,7 +153,7 @@
                 </div>
 
                 <div class="relative px-8 py-6 text-center">
-                    <h1 class="text-3xl font-bold text-white">John Developer</h1>
+                    <h1 class="text-3xl font-bold text-white">{{ Auth::user()->name }}</h1>
                     <p class="text-lg text-white opacity-80">Full Stack Developer</p>
                     <p class="mt-4 text-white opacity-90">
                         Passionate developer contributing to open-source projects. Looking to collaborate

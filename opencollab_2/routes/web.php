@@ -12,7 +12,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/user', function () {
-    return view('user',['projects' => ['laravel_1','project c','test js','opencollab'],"name"=>"ahmed"]);
+    return view('user');
 })->middleware(['auth', 'verified'])->name('user');
 
 
