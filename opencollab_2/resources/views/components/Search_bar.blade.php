@@ -10,7 +10,7 @@
                 class="mx-auto mt-8 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
                 for="search-bar">
 
-                <input id="search-bar" placeholder="your keyword here" name="q"
+                <input id="search-bar" placeholder="your keyword here" name="search-bar"
                     class="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white" required="">
                 <button type="submit"
                     class="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all">

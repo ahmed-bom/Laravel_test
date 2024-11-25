@@ -28,7 +28,7 @@
       </div>
       <div class="px-3 mr-auto">
         <h4 class="font-bold">{{$titre}}</h4>
-        <small class="text-xs">Lorem ipsum dolor sit amet,...</small>
+        <small class="text-xs">{{$description}}</small>
       </div>
       <div class="relative">
         <a href="javascript:;" @click="open = !open">
