@@ -1,4 +1,4 @@
-<div class="p-5 border rounded text-gray-500">
+<div class="p-5 border bg-white rounded text-gray-500">
     <div class="flex items-center">
         <img class="w-16 h-16 rounded-full mr-3" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80" alt="jane">
         <div class="text-sm">

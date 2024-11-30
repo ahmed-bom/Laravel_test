@@ -25,16 +25,22 @@
     transform: translate(-50%, -50%);
     }
   .center_div {
-    position: fixed;
     position: absolute;
-    top: 52%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
   }
+  .mo_a{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .animation {
     animation: mymove 3s;
     position: relative;
+    top: 125px ;
   }
   .animation #Form_div {
     padding-bottom: 20px;
@@ -43,16 +49,13 @@
   @keyframes mymove {
     0% {
       z-index: 10;
-      top: 0;
       left: 0;
     }
     50% {
-      top: 0;
       left: 400px;
       z-index: 0
     }
     100% {
-      top: 0;
       left: 0;
       z-index: 0;
     }
@@ -124,13 +127,13 @@
     <body class="font-sans text-gray-600 antialiased">
         <div class="background-animation" id="backgroundAnimation"></div>
             <div class="w-full flex justify-center mt-6">
-                <div id="register"  class="text-lg font-medium text-gray-200">
+                <div id="register"  class="text-lg font-medium text-gray-200 mo_a">
                     {{$hed_register}}
                     <div id="Form_div" class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
                         {{ $slot_register }}
                     </div>
                 </div>
-                <div id="login" class="text-lg font-medium text-gray-200">
+                <div id="login" class="text-lg font-medium text-gray-200 mo_a">
                     {{$hed_login}}
                     <div  class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
                         {{ $slot_login}}
@@ -168,6 +171,7 @@ console.log(B_Login)
 
 
   function switch_form(a, b) {
+    a.classList.remove("mo_a");
     a.classList.add("animation");
     b.classList.add("center_div");
     b.classList.remove("hidden");
@@ -175,6 +179,7 @@ console.log(B_Login)
       a.classList.add("hidden");
       a.classList.remove("animation");
       b.classList.remove("center_div");
+      b.classList.add("mo_a");
       clk=false
     }, "2900");
   }

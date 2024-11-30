@@ -1,3 +1,7 @@
+
+    <x-app-layout>
+    <div class="w-full pt-6 flex justify-center">
+        <div class="w-3/4 p-6 bg-gray-800">
  @if (isset($results))
     @if ('user' == $type)
     <div class="w-full pt-6 flex justify-center">
@@ -34,3 +38,5 @@
     </div>
     @endif
     @endif
+    </div>
+</x-app-layout>
