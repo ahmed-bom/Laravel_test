@@ -8,6 +8,9 @@
                             <x-slot name="titre">
                                 {{$project}}
                             </x-slot>
+                            <x-slot name="description"> 
+                                 {{$project}}
+                            </x-slot> 
                          </x-project_cart>
                          <br>
                          @endforeach
