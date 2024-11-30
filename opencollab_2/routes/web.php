@@ -51,5 +51,7 @@ Route::post('/projects/store', [ProjectController::class, 'store'])->name('proje
 Route::get('/projects/{project}/download/{file}', [ProjectController::class, 'downloadFile'])->name('projects.download');
 Route::delete('/projects/{project}/delete-file/{file}', [ProjectController::class, 'deleteFile'])->name('projects.deleteFile');
 
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
 
 require __DIR__.'/auth.php';

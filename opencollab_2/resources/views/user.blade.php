@@ -39,7 +39,7 @@
 
         .file-list {
             max-height: 0;
-            overflow: hidden;
+            overflow-y: auto;
             transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
             opacity: 0;
         }
@@ -184,69 +184,73 @@
             </div>
         </div>
 
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            @if(count($projects) > 0)
-                @foreach ($projects as $project)
-                    <div class="project-card border rounded-xl p-5">
-                        <div class="flex justify-between items-start mb-3">
-                            <h3 class="text-xl font-semibold text-gray-900">{{ isset($project->project_name) ? $project->project_name : 'No project name' }}</h3>
-                            <div class="flex space-x-2">
-                                <button class="text-gray-400 hover-edit">
-                                    <i class="fas fa-pen"></i>
-                                </button>
-                                <button class="text-gray-400 hover-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4">{{ isset($project->description) ? $project->description : 'No description available' }}</p>
-
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <i class="far fa-file-alt text-gray-400 mr-2"></i>
-                                <span class="text-sm text-gray-500">{{ isset($files) ? count($files) : 'No' }} files</span>
-                            </div>
-                            <button onclick="toggleFiles(this)" class="text-primary hover:text-secondary flex items-center">
-                                <i class="fas fa-chevron-down mr-1"></i>
-                                View Folder {{ isset($project->folder_name) ? ' - ' . $project->folder_name : '' }}
-                            </button>
-                        </div>
-                        <div class="file-list mt-4">
-                            @if(isset($files) && count($files) > 0)
-                                <div class="space-y-2">
-                                    @foreach($files as $file)
-                                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                            <span class="flex items-center">
-                                                <i class="fas fa-file-code text-primary mr-2"></i>
-                                                {{ basename($file) }}
-                                            </span>
-                                            <div class="flex space-x-2">
-                                                <a href="#" class="text-gray-400 hover-download">
-                                                    <i class="fas fa-download"></i>
-                                                </a>
-                                                <form action="#" method="POST">
-                                                    <button class="text-gray-400 hover-delete">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <p>No files uploaded for this project.</p>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <p>No projects found.</p>
-            @endif
+<!-- Replace the existing project card with this updated version -->
+@foreach($projects as $project)
+<div class="project-card border rounded-xl p-5" data-project-id="{{ $project->id }}">
+    <div class="flex justify-between items-start mb-3">
+        <h3 class="text-xl font-semibold text-gray-900">
+            <span class="project-name">{{ $project->project_name }}</span>
+            <input type="text" class="hidden compact-input1 w-full" value="{{ $project->project_name }}">
+        </h3>
+        <div class="flex space-x-2">
+            <button onclick="editProject(this)" class="text-gray-400 hover-edit" title="Edit project">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button onclick="deleteProject({{ $project->id }})" class="text-gray-400 hover-delete" title="Delete project">
+                <i class="fas fa-trash"></i>
+            </button>
         </div>
     </div>
-</div>
+    <div class="mb-4">
+        <p class="text-gray-600 text-sm project-description">{{ $project->description }}</p>
+        <textarea class="hidden compact-input w-full" rows="3">{{ $project->description }}</textarea>
+    </div>
 
+    <div class="flex justify-between items-center">
+        <div class="flex items-center">
+            <i class="far fa-file-alt text-gray-400 mr-2"></i>
+            <span class="text-sm text-gray-500">{{ count($project->files) }} files</span>
+        </div>
+        <button onclick="toggleFiles(this)" class="text-primary hover:text-secondary flex items-center">
+            <i class="fas fa-chevron-down mr-1"></i>
+            View Files
+        </button>
+    </div>
+    <div class="file-list mt-4">
+        @if(count($project->files) > 0)
+            <div class="space-y-2">
+                @php
+                    $groupedFiles = collect($project->files)->groupBy('directory');
+                @endphp
+
+                @foreach($groupedFiles as $directory => $files)
+                    @if($directory)
+                        <div class="ml-4 mb-2">
+                            <div class="font-medium text-gray-700">
+                                <i class="fas fa-folder text-primary mr-2"></i>{{ $directory }}
+                            </div>
+                    @endif
+
+                    @foreach($files as $file)
+                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded {{ $directory ? 'ml-6' : '' }}">
+                            <span class="flex items-center">
+                                <i class="fas fa-file-code text-primary mr-2"></i>
+                                {{ $file['name'] }}
+                            </span>
+                        </div>
+                    @endforeach
+
+                    @if($directory)
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @else
+            <p>No files uploaded for this project.</p>
+        @endif
+    </div>
+</div>
+@endforeach
 <!-- Add Project Modal -->
 <div id="addProjectModal" class="modal">
     <div class="modal-content bg-white rounded-2xl w-full max-w-md m-auto">
@@ -396,6 +400,134 @@
     }
 });
 
+    // Add this to your existing script section
+    function editProject(button) {
+    const projectCard = button.closest('.project-card');
+    const nameSpan = projectCard.querySelector('.project-name');
+    const nameInput = projectCard.querySelector('.project-name + input');
+    const descriptionP = projectCard.querySelector('.project-description');
+    const descriptionTextarea = projectCard.querySelector('textarea');
+
+    if (button.querySelector('i').classList.contains('fa-pen')) {
+        // Switch to edit mode
+        nameSpan.classList.add('hidden');
+        nameInput.classList.remove('hidden');
+        descriptionP.classList.add('hidden');
+        descriptionTextarea.classList.remove('hidden');
+
+        button.innerHTML = '<i class="fas fa-save"></i>';
+        button.title = "Save changes";
+        nameInput.focus(); // Focus on the input for immediate editing
+    } else {
+        // Save changes
+        const projectId = projectCard.dataset.projectId;
+        const newName = nameInput.value.trim();
+        const newDescription = descriptionTextarea.value.trim();
+
+        // Basic validation
+        if (!newName) {
+            alert('Project name cannot be empty');
+            return;
+        }
+
+        fetch(`/projects/${projectId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                project_name: newName,
+                description: newDescription
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                nameSpan.textContent = newName;
+                descriptionP.textContent = newDescription;
+
+                nameSpan.classList.remove('hidden');
+                nameInput.classList.add('hidden');
+                descriptionP.classList.remove('hidden');
+                descriptionTextarea.classList.add('hidden');
+
+                button.innerHTML = '<i class="fas fa-pen"></i>';
+                button.title = "Edit project";
+            } else {
+                alert(data.message || 'Failed to update project');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to update project');
+        });
+    }
+}
+
+function deleteProject(projectId) {
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+        return;
+    }
+
+    fetch(`/projects/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const projectCard = document.querySelector(`.project-card[data-project-id="${projectId}"]`);
+            projectCard.remove();
+        } else {
+            alert(data.message || 'Failed to delete project');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to delete project');
+    });
+}
+
+function deleteProject(projectId) {
+    if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+        return;
+    }
+
+    fetch(`/projects/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const projectCard = document.querySelector(`.project-card[data-project-id="${projectId}"]`);
+            projectCard.remove();
+        } else {
+            alert(data.message || 'Failed to delete project');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to delete project');
+    });
+}
+
+// Update your existing toggleFiles function
+function toggleFiles(button) {
+    const fileList = button.parentElement.nextElementSibling;
+    fileList.classList.toggle('expanded');
+
+    if (fileList.classList.contains('expanded')) {
+        button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Hide Files';
+    } else {
+        button.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>View Files';
+    }
+}
 
     </script>
 

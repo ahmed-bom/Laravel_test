@@ -13,10 +13,73 @@ class ProjectController extends Controller
     {
         $projects = Project::where('user_id', Auth::id())->get();
         foreach ($projects as $project) {
-            $project->files = Storage::files($project->path);
+            $project->files = $this->getDirectoryContents($project->path);
         }
         return view('user', compact('projects'));
     }
+
+    private function getDirectoryContents($path)
+    {
+        $contents = [];
+        $files = Storage::allFiles($path);
+
+        foreach ($files as $file) {
+            $relativePath = str_replace($path . '/', '', $file);
+            $pathInfo = pathinfo($relativePath);
+            $contents[] = [
+                'name' => $pathInfo['basename'],
+                'path' => $relativePath,
+                'directory' => dirname($relativePath) !== '.' ? dirname($relativePath) : '',
+                'full_path' => $file
+            ];
+        }
+
+        return $contents;
+    }
+
+    public function destroy($id)
+    {
+        $project = Project::findOrFail($id);
+
+        // Check if user owns this project
+        if ($project->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Delete all files in the project directory
+        Storage::deleteDirectory($project->path);
+
+        // Delete the project record
+        $project->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $project = Project::findOrFail($id);
+
+        // Check if user owns this project
+        if ($project->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $request->validate([
+            'project_name' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
+
+        $project->update([
+            'project_name' => $request->project_name,
+            'description' => $request->description
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'project' => $project
+        ]);
+    }
+
 
     public function store(Request $request)
     {
