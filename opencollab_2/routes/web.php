@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\search;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -14,21 +15,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-route::get('/search',function (Request $request) {
-    $query = $request->input('search-bar');
-        if (str_starts_with($query, '/')) {
-        $type = 'user';
-        $search_term = substr($query, 1);
-        $results = User::where('name', 'like', '%' . $search_term . '%')->get();
-    } elseif (str_starts_with($query, '&')) {
-        $type = 'project';
-        $search_term = substr($query, 1);
-        $results = Project::where('name', 'like', '%' . $search_term . '%')->get();
-    } else {
-        return redirect()->route('dashboard');
-    }
-    return view('dashboard',['results' => $results, 'type' => $type]);
-})->name('search');
+route::get('/search',[search::class,'main_search'])->name('search');
 
 Route::get('/user', function () {
     return view('user');
@@ -36,7 +23,7 @@ Route::get('/user', function () {
 
 
 Route::get('/favorite', function () {
-    return view('favorite',['projects' => ['laravel_1','project c','test js','opencollab']]);
+    return view('favorite',['projects' => ["laravel",'I hated']]);
 })->middleware(['auth', 'verified'])->name('favorite');
 
 

@@ -8,10 +8,10 @@ use App\Models\User;
 
 class search extends Controller
 {
-    public function search($query)
+    public function main_search(Request $request)
 {
-    
-    if (str_starts_with($query, '/')) {
+    $query = $request->input('search-bar');
+ if (str_starts_with($query, '/')) {
         $type = 'user';
         $search_term = substr($query, 1);
         $results = User::where('name', 'like', '%' . $search_term . '%')->get();
@@ -20,10 +20,9 @@ class search extends Controller
         $search_term = substr($query, 1);
         $results = Project::where('name', 'like', '%' . $search_term . '%')->get();
     } else {
-        return 'error';
+        return redirect()->route('dashboard');
     }
-    // return $results;
-    return redirect('/dashboard/' . $results);
+    return view('search',['results' => $results, 'type' => $type]);
 
 }
 }
