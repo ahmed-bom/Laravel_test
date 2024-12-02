@@ -8,114 +8,188 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
+        <style>
+            :root {
+                --color-primary: #904c7b;
+                --color-secondary: #591c46;
+                --color-accent-1: #e46793;
+                --color-accent-2: #f66477;
+            }
 
-<style>
-     :root {
-    --color-primary: #904c7b;
-    --color-secondary: #591c46;
-    --color-accent-1: #e46793;
-    --color-accent-2: #f66477;
-  }
+            #icon {
+                position: fixed;
+                position: absolute;
+                top: 9%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .center_div {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+            }
+            .mo_a {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .animation {
+                animation: mymove 3s;
+                position: relative;
+                top: 125px;
+            }
+            .animation #Form_div {
+                padding-bottom: 20px;
+                animation: form_div 3s;
+            }
+            @keyframes mymove {
+                0% {
+                    z-index: 10;
+                    left: 0;
+                }
+                50% {
+                    left: 400px;
+                    z-index: 0;
+                }
+                100% {
+                    left: 0;
+                    z-index: 0;
+                }
+            }
+            @keyframes form_div {
+                0% {
+                    height: 360px;
+                }
+                50% {
+                    height: 310px;
+                }
+                100% {
+                    height: 270px;
+                }
+            }
+            .background-animation {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+                background-size: 400% 400%;
+                animation: gradientBG 15s ease infinite;
+                z-index: -1;
+                overflow: hidden;
+            }
+            .background-folder {
+                position: absolute;
+                transform-style: preserve-3d;
+                perspective: 1000px;
+                opacity: 0.7;
+                transition: all 0.5s ease;
+            }
+            .background-folder:hover {
+                transform: scale(1.1) rotate(10deg);
+                opacity: 1;
+            }
+            .background-folder svg {
+                transition: all 0.5s ease;
+            }
+            @keyframes gradientBG {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            @keyframes folderFloat {
+                0%, 100% { transform: translateY(0) rotate(0deg); }
+                50% { transform: translateY(-20px) rotate(5deg); }
+            }
 
-   #icon{
-    position: fixed;
-    position: absolute;
-    top: 9%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    }
-  .center_div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-  }
-  .mo_a{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .animation {
-    animation: mymove 3s;
-    position: relative;
-    top: 125px ;
-  }
-  .animation #Form_div {
-    padding-bottom: 20px;
-    animation: form_div 3s;
-  }
-  @keyframes mymove {
-    0% {
-      z-index: 10;
-      left: 0;
-    }
-    50% {
-      left: 400px;
-      z-index: 0
-    }
-    100% {
-      left: 0;
-      z-index: 0;
-    }
-  }
+            /* Enhanced Form Styling */
+            #Form_div {
+                background-color: var(--color-secondary);
+                width: 350px;
+                max-width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                border-radius: 25px 0 25px 0;
+                position: relative;
+                overflow: hidden;
+            }
 
-  @keyframes form_div {
-    0% {
-      height: 360px;
-    }
-    50% {
-      height: 310px;
-    }
-    100% {
-      height: 270px;
-    }
-  }
+            #Form_div::before {
+                content: '';
+                position: absolute;
+                top: -50px;
+                left: -50px;
+                width: 100px;
+                height: 100px;
+                background: rgba(255,255,255,0.1);
+                transform: rotate(45deg);
+                z-index: 1;
+            }
 
-  .background-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    z-index: -1;
-    overflow: hidden;
-  }
+            #Form_div input[type="text"],
+            #Form_div input[type="email"],
+            #Form_div input[type="password"] {
+                width: 100%;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                border: 2px solid var(--color-accent-1);
+                border-radius: 10px;
+                background-color: rgba(255,255,255,0.1);
+                color: var(--color-text-light);
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
 
-  .background-folder {
-    position: absolute;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    opacity: 0.7;
-    transition: all 0.5s ease;
-  }
+            #Form_div input[type="text"]:focus,
+            #Form_div input[type="email"]:focus,
+            #Form_div input[type="password"]:focus {
+                outline: none;
+                border-color: var(--color-accent-2);
+                box-shadow: 0 0 10px rgba(228,103,147,0.5);
+            }
 
-  .background-folder:hover {
-    transform: scale(1.1) rotate(10deg);
-    opacity: 1;
-  }
+            #Form_div input[type="text"]::placeholder,
+            #Form_div input[type="email"]::placeholder,
+            #Form_div input[type="password"]::placeholder {
+                color: rgba(255,255,255,0.7);
+            }
 
-  .background-folder svg {
-    transition: all 0.5s ease;
-  }
+            #Form_div button {
+                width: 100%;
+                padding: 0.75rem;
+                background-color: var(--color-accent-1);
+                color: var(--color-text-light);
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            }
 
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+            #Form_div button:hover {
+                background-color: var(--color-accent-2);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
 
-  @keyframes folderFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-  }
+            #Form_div label {
+                color: var(--color-text-light);
+                margin-bottom: 0.5rem;
+                display: block;
+                font-weight: 500;
+            }
 
-
-</style>
+            /* Error Message Styling */
+            #Form_div .text-red-500 {
+                color: var(--color-accent-2);
+                font-size: 0.875rem;
+                margin-top: -0.5rem;
+                margin-bottom: 1rem;
+            }
+        </style>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -126,18 +200,17 @@
     </head>
     <body class="font-sans text-gray-600 antialiased">
         <div class="background-animation" id="backgroundAnimation"></div>
-            <div class="w-full flex justify-center mt-6">
-                <div id="register"  class="text-lg font-medium text-gray-200 mo_a">
-                    {{$hed_register}}
-                    <div id="Form_div" class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
-                        {{ $slot_register }}
-                    </div>
+        <div class="w-full flex justify-center mt-6">
+            <div id="register"  class="text-lg font-medium text-gray-200 mo_a">
+                {{$hed_register}}
+                <div id="Form_div" class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
+                    {{ $slot_register }}
                 </div>
-                <div id="login" class="text-lg font-medium text-gray-200 mo_a">
-                    {{$hed_login}}
-                    <div  class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
-                        {{ $slot_login}}
-                    </div>
+            </div>
+            <div id="login" class="text-lg font-medium text-gray-200 mo_a">
+                {{$hed_login}}
+                <div id="Form_div" class="w-[350px] sm:max-w-md px-6 py-4 bg-rose-900 shadow-md overflow-hidden rounded-b-[25px] rounded-tr-[25px]">
+                    {{ $slot_login}}
                 </div>
             </div>
         </div>
