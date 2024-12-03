@@ -132,6 +132,25 @@
             <div class="bg-primary rounded-2xl shadow-lg overflow-hidden">
                 <div class="gradient-bg profile-header relative">
                     <!-- Settings Menu -->
+                    <form action="{{ route('profile.upload') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+                        @csrf
+                        <div class="profile-picture relative">
+                            <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
+                                <!-- Display the profile picture or a placeholder -->
+                                <img src="{{ asset('uploads/profile-pics/' . (auth()->user()->profile_picture ?? 'default-profile.png')) }}"
+                                     alt=""
+                                     class="w-full h-full object-cover"
+                                     id="profileImage">
+                            </div>
+                            <!-- File Input -->
+                            <input type="file" id="profilePicUpload" name="profile_pic" class="hidden" accept="image/*">
+                            <!-- Camera Button -->
+                            <label for="profilePicUpload" class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 cursor-pointer">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                        </div>
+                    </form>
+
                     <div class="absolute top-4 right-4">
                         <button onclick="toggleMenu()" class="p-2 rounded-full bg-white bg-opacity-20 text-white hover:bg-opacity-30">
                             <i class="fas fa-ellipsis-v"></i>
@@ -145,22 +164,13 @@
                             </button>
                         </div>
                     </div>
-                    <div class="profile-picture">
-                        <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
-                            <img src="/api/placeholder/128/128" alt="Profile picture" class="w-full h-full object-cover">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="relative px-8 py-6 text-center">
                     <h1 class="text-3xl font-bold text-white">{{ Auth::user()->name }}</h1>
-                    <p class="text-lg text-white opacity-80">Full Stack Developer</p>
-                    <p class="mt-4 text-white opacity-90">
-                        Passionate developer contributing to open-source projects. Looking to collaborate
-                        on innovative ideas and learn from fellow developers on OpenCollab.
-                    </p>
                 </div>
             </div>
+
 
             <!-- Projects Section -->
            <!-- Projects Section -->
@@ -206,16 +216,22 @@
         <textarea class="hidden compact-input w-full" rows="3">{{ $project->description }}</textarea>
     </div>
 
-    <div class="flex justify-between items-center">
-        <div class="flex items-center">
-            <i class="far fa-file-alt text-gray-400 mr-2"></i>
-            <span class="text-sm text-gray-500">{{ count($project->files) }} files</span>
-        </div>
-        <button onclick="toggleFiles(this)" class="text-primary hover:text-secondary flex items-center">
-            <i class="fas fa-chevron-down mr-1"></i>
-            View Files
-        </button>
+  <div class="flex justify-between items-center">
+    <div class="flex items-center">
+        <i class="far fa-file-alt text-primary mr-2"></i>
+        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-full font-medium">
+            {{ count($project->files) }} files
+        </span>
     </div>
+    <button
+        onclick="toggleFiles(this)"
+        class="flex items-center px-3 py-1 rounded-full text-primary hover:bg-accent-1 hover:text-grey transition-all duration-300 ease-in-out"
+    >
+        <i class="fas fa-chevron-down mr-2"></i>
+        View Files
+    </button>
+</div>
+
     <div class="file-list mt-4">
         @if(count($project->files) > 0)
             <div class="space-y-2">
@@ -223,27 +239,36 @@
                     $groupedFiles = collect($project->files)->groupBy('directory');
                 @endphp
 
-                @foreach($groupedFiles as $directory => $files)
-                    @if($directory)
-                        <div class="ml-4 mb-2">
-                            <div class="font-medium text-gray-700">
-                                <i class="fas fa-folder text-primary mr-2"></i>{{ $directory }}
-                            </div>
-                    @endif
-
-                    @foreach($files as $file)
-                        <div class="flex items-center justify-between p-2 bg-gray-50 rounded {{ $directory ? 'ml-6' : '' }}">
-                            <span class="flex items-center">
-                                <i class="fas fa-file-code text-primary mr-2"></i>
-                                {{ $file['name'] }}
-                            </span>
-                        </div>
-                    @endforeach
-
-                    @if($directory)
-                        </div>
-                    @endif
-                @endforeach
+@foreach($groupedFiles as $directory => $files)
+@if($directory)
+    <div class="ml-4 mb-2 nested-folder">
+        <div class="font-medium text-gray-700 flex items-center cursor-pointer folder-toggle">
+            <i class="fas fa-folder-open text-primary mr-2"></i>
+            <span>{{ $directory }}</span>
+            <i class="fas fa-chevron-down ml-2 text-sm text-gray-500 folder-chevron"></i>
+        </div>
+        <div class="nested-files hidden ml-6 space-y-2">
+            @foreach($files as $file)
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <span class="flex items-center">
+                        <i class="fas fa-file-code text-primary mr-2"></i>
+                        {{ $file['name'] }}
+                    </span>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@else
+    @foreach($files as $file)
+        <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+            <span class="flex items-center">
+                <i class="fas fa-file-code text-primary mr-2"></i>
+                {{ $file['name'] }}
+            </span>
+        </div>
+    @endforeach
+@endif
+@endforeach
             </div>
         @else
             <p>No files uploaded for this project.</p>
@@ -265,21 +290,49 @@
                 @csrf
                 <div class="mb-4">
                     <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name:</label>
-                    <input type="text" name="project_name" id="project_name" class="mt-1 p-2 block w-full border rounded-md" required>
+                    <input
+                        type="text"
+                        name="project_name"
+                        id="project_name"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    >
                 </div>
                 <div class="mb-4">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                    <textarea name="description" id="description" class="mt-1 p-2 block w-full border rounded-md" required></textarea>
+                    <textarea
+                        name="description"
+                        id="description"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    ></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="files" class="block text-sm font-medium text-gray-700">Upload Folder:</label>
-                    <input type="file" name="files[]" id="files" class="mt-1 p-2 block w-full" multiple webkitdirectory required>
+                    <div class="flex items-center">
+                        <input
+                            type="file"
+                            name="files[]"
+                            id="files"
+                            class="mt-1 p-2 block w-full"
+                            multiple
+                            webkitdirectory
+                            required
+                        >
+
+                    </div>
                 </div>
-                <button type="submit" class="w-full px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition">Create Project</button>
+                <button
+                    type="submit"
+                    class="w-full px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition"
+                >
+                    Create Project
+                </button>
             </form>
         </div>
     </div>
 </div>
+
     <!-- Delete Account Modal -->
     <div id="deleteModal" class="modal">
         <div class="bg-white rounded-2xl p-8 w-full max-w-md m-auto">
@@ -302,6 +355,7 @@
         </div>
     </div>
     <script>
+
         function toggleMenu() {
             document.getElementById('settingsMenu').classList.toggle('hidden');
         }
@@ -528,6 +582,61 @@ function toggleFiles(button) {
         button.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>View Files';
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.querySelector('input[placeholder="Search projects..."]');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            projectCards.forEach(card => {
+                const projectName = card.querySelector('.project-name').textContent.toLowerCase();
+                const projectDescription = card.querySelector('.project-description').textContent.toLowerCase();
+
+                if (projectName.includes(searchTerm) || projectDescription.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const folderToggles = document.querySelectorAll('.folder-toggle');
+
+    folderToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const nestedFiles = this.nextElementSibling;
+            const chevron = this.querySelector('.folder-chevron');
+
+            nestedFiles.classList.toggle('hidden');
+
+            if (nestedFiles.classList.contains('hidden')) {
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+            } else {
+                chevron.classList.remove('fa-chevron-down');
+                chevron.classList.add('fa-chevron-up');
+            }
+        });
+    });
+});
+document.getElementById('profilePicUpload').addEventListener('change', function () {
+        // Check if a file is selected
+        if (this.files && this.files[0]) {
+            // Optionally, preview the selected image before submitting
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('profileImage').src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+
+            // Submit the form
+            document.getElementById('uploadForm').submit();
+        }
+    });
 
     </script>
 

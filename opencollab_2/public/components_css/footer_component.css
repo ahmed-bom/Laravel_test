@@ -3,6 +3,9 @@ a {
   color:#fff;
   text-decoration:none;
 }
+body{
+    overflow-x: hidden;
+}
 footer {
   width:100vw;
   height: 30%;
@@ -10,7 +13,7 @@ footer {
   bottom:0px
 }
 footer div {
-  background-color: var(--col-deepblue);
+  background-color: #e46793;
   margin: -5px 0px 0px 0px;
   padding:0px;
   color: #fff;
@@ -24,12 +27,12 @@ svg {
 .wave {
   animation: wave 3s linear;
   animation-iteration-count:infinite;
-  fill: #4478e3;
+  fill: #904c7b;
 }
 .drop {
-  fill: var(--col-deepblue);
+  fill: #e46793;
   animation: drop 3.2s linear infinite normal;
-  stroke: var(--col-deepblue);
+  stroke: #e46793;
   stroke-width:0.5;
   transform: translateY(25px) ;
   transform-box: fill-box;

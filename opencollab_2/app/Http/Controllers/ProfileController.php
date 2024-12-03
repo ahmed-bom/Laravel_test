@@ -57,4 +57,24 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Save file to 'public/uploads/profile-pics' directory
+        $file = $request->file('profile_pic');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads/profile-pics'), $filename);
+
+        // Save the filename in the user's profile
+        $request->user()->profile_picture = $filename;
+        $request->user()->save();
+
+        // Optionally, store the filename in the session or elsewhere
+        session(['profile_picture' => $filename]);
+
+        return back()->with('success', 'Profile picture updated successfully.');
+    }
 }

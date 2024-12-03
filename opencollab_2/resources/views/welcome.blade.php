@@ -11,21 +11,23 @@
             --color-secondary: #591c46;
             --color-accent-1: #e46793;
             --color-accent-2: #f66477;
+            --color-accent-4: #d1a8ad;
+            --color-accent-5: #b86872;
         }
 
         body {
             height: 100vh;
             background: linear-gradient(101deg,
-                #FFD1DC 23%,
-                #FFC0CB 57%,
+                #d297a5 23%,
+                #ed9eab 57%,
                 #FFB6C1 100%);
             font-family: 'Inter', sans-serif;
         }
 
         .gradient-text {
             background: linear-gradient(to right,
-                var(--color-accent-1),
-                var(--color-accent-2));
+                var(--color-primary) 35%,
+                var(--color-primary)) 25%;
             -webkit-background-clip: text;
             color: transparent;
         }
@@ -71,7 +73,7 @@
         </h1>
 
         <p class="mx-auto mt-9 max-w-2xl text-lg tracking-tight text-white sm:mt-6">
-            <span class="inline-block text-[var(--color-accent-2)] mr-2">A platform to:</span>
+            <span class="inline-block text-[var(--color-secondary)] mr-2">A platform to:</span>
             <span class="inline-block text-white">share, explore, and download innovative projects</span>
         </p>
 
@@ -90,7 +92,7 @@
             © 2024 OpenCollab. All rights reserved.
             <span class="block text-lg mt-3 text-[var(--color-secondary)] font-bold ">
                 Designed and developed by
-                <span class="gradient-text">Ahmed & Haitham</span>
+                <span class="gradient-text">Haitham & Ahmed </span>
             </span>
         </footer>
     </div>
