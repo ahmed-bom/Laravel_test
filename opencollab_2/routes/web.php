@@ -22,11 +22,6 @@ Route::get('/user', function () {
 })->middleware(['auth', 'verified'])->name('user');
 
 
-Route::get('/favorite', function () {
-    return view('favorite',['projects' => ["laravel",'I hated']]);
-})->middleware(['auth', 'verified'])->name('favorite');
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

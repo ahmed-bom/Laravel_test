@@ -22,9 +22,6 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link class="block px-4 py-2 text-gray-100" :href="route('favorite')" :active="request()->route('favorite')">
-                        {{ __('Favorite') }}
-                    </x-nav-link>
                 </div>
             </div>
             <!-- Settings Dropdown -->

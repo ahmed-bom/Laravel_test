@@ -1,21 +1,15 @@
 <div class="p-5 border bg-white rounded text-gray-500">
-    <div class="flex items-center">
+    <div class="flex justify-between ">
+        <div class="flex items-center">
         <img class="w-16 h-16 rounded-full mr-3" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80" alt="jane">
         <div class="text-sm">
-            <a href="#"
-                class="font-medium leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">
+            <a href= {{$link}}
+                class="font-medium text-lg leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">
                 {{$name}}
             </a>
-            <p>Blogger &amp; Youtuber</p>
         </div>
-    </div>
-
-    <p class="mt-2 text-sm text-gray-900">
-        Lorem ipsum dolor sit amet, consecte adipisicing elit. Voluptatibus quia
-        Maiores et perferendis eaque
-    </p>
-
-    <div class="flex mt-4">
+        </div>
+        <div class= "flex justify-around">
         <a href="/#" class="w-6 mx-1">
             <svg class="fill-current cursor-pointer text-gray-500 hover:text-indigo-600" width="100%" height="100%"
                 viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +101,7 @@
                   -0.416,-0.385l-0.519,0l0,-1.426l4.847,0l1.583,5.704l0.042,0l1.598,-5.704l5.021,0l0,1.426Z"></path>
             </svg>
         </a>
+        </div>
     </div>
 
 </div>
