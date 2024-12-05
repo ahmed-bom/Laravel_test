@@ -113,7 +113,6 @@
                 max-width: 100%;
                 padding: 2rem;
                 box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                border-radius: 25px 0 25px 0;
                 position: relative;
                 overflow: hidden;
             }

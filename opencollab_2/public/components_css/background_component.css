@@ -46,11 +46,12 @@
 */
 .area {
 	background: #c45f83;
-	background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+	background: -webkit-linear-gradient(to left, #fb8ff0, #ad56a7);
 	width: 100%;
 	height: 100%;
-	position: absolute;
+    position:fixed;
 	z-index: -1;
+    top: 0px;
 }
 
 .circles {
