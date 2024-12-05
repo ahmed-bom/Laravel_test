@@ -1,7 +1,7 @@
 <div class="p-5 border bg-white rounded text-gray-500">
     <div class="flex justify-between ">
         <div class="flex items-center">
-        <img class="w-16 h-16 rounded-full mr-3" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80" alt="jane">
+        {{$image}}
         <div class="text-sm">
             <a href= {{$link}}
                 class="font-medium text-lg leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">

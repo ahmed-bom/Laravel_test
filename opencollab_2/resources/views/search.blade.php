@@ -14,7 +14,10 @@
                     {{$result->name}}
                 </x-slot>
                 <x-slot name="link">
-                 /projects/{{$result->aa}}
+                 /users/{{$result->id}}
+                </x-slot>
+                <x-slot name="image">
+                <img src="{{ asset('uploads/profile-pics/' . (auth()->user()->profile_picture ?? 'default-profile.png')) }}"alt=""class="w-16 h-16 rounded-full mr-3"id="profileImage">
                 </x-slot>
             </x-user_cart>
             <br>
@@ -38,7 +41,7 @@
                     {{$result->name}}
                 </x-slot>
                 <x-slot name="link">
-                 /projects/{{$result->id}}
+                 /users/{{$result->user_id}}
                 </x-slot>
 
                 <x-slot name="link_download">{{ route('projects.download', ['projectId' => $result->id]) }}</x-slot>

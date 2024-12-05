@@ -17,6 +17,12 @@ Route::get('/dashboard', function () {
 
 route::get('/search',[search::class,'main_search'])->name('search');
 
+Route::get('/users/{user_id}', function ($user_id) {
+    $user = User::find($user_id);
+    $projects = Project::where('user_id', $user_id)->get();
+    return view('user2',['user'=>$user,'projects'=>$projects]);
+})->middleware(['auth', 'verified'])->name('users');
+
 Route::get('/user', function () {
     return view('user');
 })->middleware(['auth', 'verified'])->name('user');
