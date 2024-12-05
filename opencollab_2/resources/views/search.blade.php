@@ -14,7 +14,7 @@
                     {{$result->name}}
                 </x-slot>
                 <x-slot name="link">
-                 /projects/{{$result->aa}}   
+                 /projects/{{$result->aa}}
                 </x-slot>
             </x-user_cart>
             <br>
@@ -31,18 +31,18 @@
                 <x-slot name="titre">
                     {{$result->project_name}}
                 </x-slot>
-                <x-slot name="description"> 
+                <x-slot name="description">
                     {{$result->description}}
                 </x-slot>
                 <x-slot name="user">
-                    {{$result->user_id}}
+                    {{$result->name}}
                 </x-slot>
                 <x-slot name="link">
-                 /projects/{{$result->aa}}   
+                 /projects/{{$result->id}}
                 </x-slot>
-                <x-slot name="link_download">
-                 /   
-                </x-slot>
+
+                <x-slot name="link_download">{{ route('projects.download', ['projectId' => $result->id]) }}</x-slot>
+
             </x-project_cart>
             <br>
             @endforeach

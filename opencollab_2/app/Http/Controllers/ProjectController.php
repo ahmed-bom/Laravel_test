@@ -147,4 +147,44 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('error', 'File not found.');
     }
+
+
+    public function downloadFolder($projectId)
+    {
+        // Fetch project by ID
+        $project = Project::findOrFail($projectId);
+
+        // Full folder path
+        $folderPath = storage_path('app/private/' . $project->path);
+
+        // Check if the folder exists
+        if (!is_dir($folderPath)) {
+            abort(404, 'Folder not found.');
+        }
+
+        // Temporary tar.gz archive path
+        $tempArchivePath = storage_path('app/temp_downloads/' . $project->project_name . '.tar.gz');
+
+        // Ensure the temporary directory exists
+        if (!is_dir(dirname($tempArchivePath))) {
+            mkdir(dirname($tempArchivePath), 0755, true);
+        }
+
+        // Create tar.gz archive
+        $phar = new \PharData(str_replace('.gz', '', $tempArchivePath));
+        $phar->buildFromDirectory($folderPath);
+        $phar->compress(\Phar::GZ);
+
+        // Ensure the original tar file is deleted (leave only tar.gz)
+        unlink(str_replace('.gz', '', $tempArchivePath));
+
+        // Stream the tar.gz file for download
+        return response()->download($tempArchivePath)->deleteFileAfterSend(true);
+    }
+
+
+
+
+
+
 }

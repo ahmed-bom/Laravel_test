@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\User;
@@ -18,7 +18,9 @@ class search extends Controller
     } elseif (str_starts_with($query, '&')) {
         $type = 'project';
         $search_term = substr($query, 1);
-        $results = Project::where('name', 'like', '%' . $search_term . '%')->get();
+        $results = DB::table('projects')->select('projects.id','projects.project_name','projects.description','users.name')
+        ->join('users','projects.user_id','=','users.id')
+        ->where('project_name', 'like', '%' . $search_term . '%')->get();
     } else {
         return redirect()->route('dashboard');
     }
