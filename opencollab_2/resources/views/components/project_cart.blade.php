@@ -59,7 +59,6 @@
             class="flex py-3 px-2 text-sm font-bold hover:bg-gray-100"
           >
             <span class="mr-auto">Owner : {{$user}}</span>
-
           </a>
           <a
             href={{$link_download}}
