@@ -58,23 +58,31 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
     public function upload(Request $request)
-    {
-        $request->validate([
-            'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
-        // Save file to 'public/uploads/profile-pics' directory
-        $file = $request->file('profile_pic');
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('uploads/profile-pics'), $filename);
+    $user = $request->user();
 
-        // Save the filename in the user's profile
-        $request->user()->profile_picture = $filename;
-        $request->user()->save();
-
-        // Optionally, store the filename in the session or elsewhere
-        session(['profile_picture' => $filename]);
-
-        return back()->with('success', 'Profile picture updated successfully.');
+    // Delete existing profile picture if it exists
+    if ($user->profile_picture) {
+        $oldFilePath = public_path('uploads/profile-pics/' . $user->profile_picture);
+        if (file_exists($oldFilePath)) {
+            unlink($oldFilePath);
+        }
     }
+
+    // Upload new profile picture
+    $file = $request->file('profile_pic');
+    $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('uploads/profile-pics'), $filename);
+
+    // Update user's profile picture
+    $user->profile_picture = $filename;
+    $user->save();
+
+    return back()->with('success', 'Profile picture updated successfully.');
+}
+
 }

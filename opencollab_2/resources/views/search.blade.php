@@ -17,7 +17,7 @@
                  /users/{{$result->id}}
                 </x-slot>
                 <x-slot name="image">
-                <img src="{{ asset('uploads/profile-pics/' . (auth()->user()->profile_picture ?? 'default-profile.png')) }}"alt=""class="w-16 h-16 rounded-full mr-3"id="profileImage">
+                    <img src="{{ asset('uploads/profile-pics/' . ($result->profile_picture ?? 'default-profile.png')) }}"alt=""class="w-16 h-16 rounded-full mr-3"id="profileImage">
                 </x-slot>
             </x-user_cart>
             <br>

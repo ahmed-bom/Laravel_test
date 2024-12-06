@@ -135,12 +135,16 @@
                     <form action="{{ route('profile.upload') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
                         @csrf
                         <div class="profile-picture relative">
-                            <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
-                                <!-- Display the profile picture or a placeholder -->
-                                <img src="{{ asset('uploads/profile-pics/' . (auth()->user()->profile_picture ?? 'default-profile.png')) }}"
-                                     alt=""
-                                     class="w-full h-full object-cover"
-                                     id="profileImage">
+                            <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg bg-gray-300">
+                                @if(auth()->user()->profile_picture)
+                                    <img src="{{ asset('uploads/profile-pics/' . auth()->user()->profile_picture) }}"
+                                         alt=""
+                                         class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center text-gray-600">
+                                        <i class="fas fa-user text-4xl"></i>
+                                    </div>
+                                @endif
                             </div>
                             <!-- File Input -->
                             <input type="file" id="profilePicUpload" name="profile_pic" class="hidden" accept="image/*">
@@ -149,6 +153,8 @@
                                 <i class="fas fa-camera"></i>
                             </label>
                         </div>
+
+
                     </form>
 
                     <div class="absolute top-4 right-4">
