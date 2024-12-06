@@ -12,7 +12,7 @@
     @click.away="open = false"
   >
     <div
-      class="flex items-center bg-indigo-500 rounded-md p-3 text-white cursor-pointer transition duration-500 ease-in-out hover:shadow hover:bg-indigo-600"
+      class="flex items-center bg-red-600 rounded-md p-3 text-white cursor-pointer transition duration-500 ease-in-out hover:shadow hover:bg-red-800"
     >
       <div>
         <svg
@@ -58,8 +58,8 @@
             href={{$link}}
             class="flex py-3 px-2 text-sm font-bold hover:bg-gray-100"
           >
-            <span class="mr-auto">{{$user}}</span>
-            <img class="w-[50px] h-[50px] rounded-full mr-3" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80" alt="">
+            <span class="mr-auto">Owner : {{$user}}</span>
+
           </a>
           <a
             href={{$link_download}}
