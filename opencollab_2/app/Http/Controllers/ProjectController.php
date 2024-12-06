@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
@@ -37,47 +37,28 @@ class ProjectController extends Controller
         return $contents;
     }
 
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::findOrFail($id);
-
-        // Check if user owns this project
-        if ($project->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        // Delete all files in the project directory
-        Storage::deleteDirectory($project->path);
-
-        // Delete the project record
         $project->delete();
 
-        return response()->json(['success' => true]);
+        return Redirect::route('user')->with('status', 'Project deleted successfully!');
     }
 
-    public function update(Request $request, $id)
+    public function edit(Project $project)
     {
-        $project = Project::findOrFail($id);
+        return view('projects.edit', compact('project'));
+    }
 
-        // Check if user owns this project
-        if ($project->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
+    public function update(Request $request, Project $project)
+    {
         $request->validate([
-            'project_name' => 'required|string|max:255',
-            'description' => 'required|string'
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
         ]);
 
-        $project->update([
-            'project_name' => $request->project_name,
-            'description' => $request->description
-        ]);
+        $project->update($request->only('name', 'description'));
 
-        return response()->json([
-            'success' => true,
-            'project' => $project
-        ]);
+        return Redirect::route('projects.edit', $project)->with('status', 'Project updated successfully!');
     }
 
 

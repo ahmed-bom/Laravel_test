@@ -209,13 +209,21 @@
             <input type="text" class="hidden compact-input1 w-full" value="{{ $project->project_name }}">
         </h3>
         <div class="flex space-x-2">
-            <button onclick="editProject(this)" class="text-gray-400 hover-edit" title="Edit project">
+            <!-- Edit button (direct link to edit page) -->
+            <a href="{{ route('projects.edit', $project->id) }}" class="text-gray-400 hover-edit" title="Edit project">
                 <i class="fas fa-pen"></i>
-            </button>
-            <button onclick="deleteProject({{ $project->id }})" class="text-gray-400 hover-delete" title="Delete project">
-                <i class="fas fa-trash"></i>
-            </button>
+            </a>
+
+            <!-- Delete button (with form) -->
+            <form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-gray-400 hover-delete" title="Delete project">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
         </div>
+
     </div>
     <div class="mb-4">
         <p class="text-gray-600 text-sm project-description">{{ $project->description }}</p>
