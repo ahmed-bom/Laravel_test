@@ -188,6 +188,21 @@
         <p class="text-gray-600 text-sm project-description">{{ $project->description }}</p>
         <textarea class="hidden compact-input w-full" rows="3">{{ $project->description }}</textarea>
     </div>
+      <div class="flex justify-between items-center">
+    <div class="flex items-center">
+        <i class="far fa-file-alt text-primary mr-2"></i>
+        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-full font-medium">
+            {{ count($project->files) }} files
+        </span>
+    </div>
+    <button
+        onclick="toggleFiles(this)"
+        class="flex items-center px-3 py-1 rounded-full text-primary hover:bg-accent-1 hover:text-grey transition-all duration-300 ease-in-out"
+    >
+        <i class="fas fa-chevron-down mr-2"></i>
+        View Files
+    </button>
+</div>
 </div>
 @endforeach
 
