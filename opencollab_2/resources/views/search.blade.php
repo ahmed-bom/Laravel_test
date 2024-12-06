@@ -1,4 +1,7 @@
 
+@php
+ use Carbon\Carbon;
+@endphp
     <x-app-layout>
     <div class="w-full pt-6 flex justify-center">
         <div class="w-3/4 p-6 ">
@@ -43,7 +46,9 @@
                 <x-slot name="link">
                  /users/{{$result->user_id}}
                 </x-slot>
-
+                <x-slot name="updated_at">
+                    {{Carbon::parse($result->updated_at)->diffForHumans()}}
+                </x-slot>
                 <x-slot name="link_download">{{ route('projects.download', ['projectId' => $result->id]) }}</x-slot>
 
             </x-project_cart>

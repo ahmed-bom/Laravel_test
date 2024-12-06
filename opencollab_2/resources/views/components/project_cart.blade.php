@@ -26,8 +26,9 @@
           ></path>
         </svg>
       </div>
-      <div class="px-3 mr-auto">
-        <h4 class="font-bold">{{$titre}}</h4>
+      <div class="px-3 w-full">
+        <div class="w-full flex justify-between"><h4>{{$titre}}</h4><h6 class="text-xs">{{$updated_at}}</h6></div>
+
         <small class="text-xs">{{$description}}</small>
       </div>
       <div class="relative">

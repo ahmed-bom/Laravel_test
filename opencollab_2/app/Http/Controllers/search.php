@@ -18,7 +18,7 @@ class search extends Controller
     } elseif (str_starts_with($query, '&')) {
         $type = 'project';
         $search_term = substr($query, 1);
-        $results = DB::table('projects')->select('projects.id','projects.project_name','projects.description','projects.user_id','users.name')
+        $results = DB::table('projects')->select('projects.id','projects.project_name','projects.description','projects.user_id','projects.updated_at','users.name')
         ->join('users','projects.user_id','=','users.id')
         ->where('project_name', 'like', '%' . $search_term . '%')->get();
     } else {

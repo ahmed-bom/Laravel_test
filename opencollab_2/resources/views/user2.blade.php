@@ -126,6 +126,7 @@
     </style>
 </head>
 <body>
+    @include('layouts.navigation')
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto">
             <!-- Profile Header -->
@@ -136,10 +137,7 @@
                         <div class="profile-picture relative">
                             <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
                                 <!-- Display the profile picture or a placeholder -->
-                                <img src="{{ asset('uploads/profile-pics/' . (auth()->user()->profile_picture ?? 'default-profile.png')) }}"
-                                     alt=""
-                                     class="w-full h-full object-cover"
-                                     id="profileImage">
+                                <img src="{{ asset('uploads/profile-pics/' . ($user->profile_picture ?? 'default-profile.png')) }}"alt=""id="profileImage"class="w-full h-full object-cover">
                             </div>
                         </div>
 
