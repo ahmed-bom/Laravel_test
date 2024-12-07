@@ -2,10 +2,12 @@
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\search;
+use App\Http\Controllers\User2Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\User;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,11 +19,7 @@ Route::get('/dashboard', function () {
 
 route::get('/search',[search::class,'main_search'])->name('search');
 
-Route::get('/users/{user_id}', function ($user_id) {
-    $user = User::find($user_id);
-    $projects = Project::where('user_id', $user_id)->get();
-    return view('user2',['user'=>$user,'projects'=>$projects]);
-})->middleware(['auth', 'verified'])->name('users');
+Route::get('/users/{user_id}', [User2Controller::class, 'index'])->middleware(['auth', 'verified'])->name('users');
 
 Route::get('/user', function () {
     return view('user');

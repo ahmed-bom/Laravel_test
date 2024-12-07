@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,16 +125,15 @@
     </style>
 </head>
 <body>
-    @include('layouts.navigation')
+     @include('layouts.navigation')
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto">
             <!-- Profile Header -->
             <div class="bg-primary rounded-2xl shadow-lg overflow-hidden">
                 <div class="gradient-bg profile-header relative">
                     <!-- Settings Menu -->
-
                         <div class="profile-picture relative">
-                            <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
+                                <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden shadow-lg">
                                 <!-- Display the profile picture or a placeholder -->
                                 <img src="{{ asset('uploads/profile-pics/' . ($user->profile_picture ?? 'default-profile.png')) }}"alt=""id="profileImage"class="w-full h-full object-cover">
                             </div>
@@ -143,10 +141,21 @@
 
 
 
+                    <div class="absolute top-4 right-4">
+                    
+                        <div id="settingsMenu" class="hidden absolute right-0 mt-2 w-48 rounded-lg shadow-lg bg-white">
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <button onclick="showDeleteModal()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">
+                                <i class="fas fa-trash-alt mr-2"></i>Delete Account
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="relative px-8 py-6 text-center">
-                    <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
+                    <h1 class="text-3xl font-bold text-white">{{$user->name}}</h1>
                 </div>
             </div>
 
@@ -155,10 +164,6 @@
            <!-- Projects Section -->
 <div class="mt-8">
     <div class="bg-white rounded-2xl shadow-lg p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-900">Projects</h2>
-        </div>
-
         <!-- Search Bar -->
         <div class="mb-6">
             <div class="relative">
@@ -183,16 +188,18 @@
                 <i class="fas fa-download hover-download"></i>
             </a>
         </div>
+
     </div>
     <div class="mb-4">
         <p class="text-gray-600 text-sm project-description">{{ $project->description }}</p>
         <textarea class="hidden compact-input w-full" rows="3">{{ $project->description }}</textarea>
     </div>
-      <div class="flex justify-between items-center">
+
+  <div class="flex justify-between items-center">
     <div class="flex items-center">
         <i class="far fa-file-alt text-primary mr-2"></i>
         <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-full font-medium">
-            {{ count($project->files) }} files
+            {{ count($files) }} files
         </span>
     </div>
     <button
@@ -203,9 +210,129 @@
         View Files
     </button>
 </div>
+
+    <div class="file-list mt-4">
+        @if(count($files) > 0)
+            <div class="space-y-2">
+                @php
+                    $groupedFiles = collect($files)->groupBy('directory');
+                @endphp
+
+@foreach($groupedFiles as $directory => $files)
+@if($directory)
+    <div class="ml-4 mb-2 nested-folder">
+        <div class="font-medium text-gray-700 flex items-center cursor-pointer folder-toggle">
+            <i class="fas fa-folder-open text-primary mr-2"></i>
+            <span>{{ $directory }}</span>
+            <i class="fas fa-chevron-down ml-2 text-sm text-gray-500 folder-chevron"></i>
+        </div>
+        <div class="nested-files hidden ml-6 space-y-2">
+            @foreach($files as $file)
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <span class="flex items-center">
+                        <i class="fas fa-file-code text-primary mr-2"></i>
+                        {{ $file['name'] }}
+                    </span>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@else
+    @foreach($files as $file)
+        <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+            <span class="flex items-center">
+                <i class="fas fa-file-code text-primary mr-2"></i>
+                {{ $file['name'] }}
+            </span>
+        </div>
+    @endforeach
+@endif
+@endforeach
+            </div>
+        @else
+            <p>No files uploaded for this project.</p>
+        @endif
+    </div>
 </div>
 @endforeach
+<!-- Add Project Modal -->
+<div id="addProjectModal" class="modal">
+    <div class="modal-content bg-white rounded-2xl w-full max-w-md m-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-gray-900">Add New Project</h3>
+                <button onclick="hideAddProjectModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name:</label>
+                    <input
+                        type="text"
+                        name="project_name"
+                        id="project_name"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                    <textarea
+                        name="description"
+                        id="description"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    ></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="files" class="block text-sm font-medium text-gray-700">Upload Folder:</label>
+                    <div class="flex items-center">
+                        <input
+                            type="file"
+                            name="files[]"
+                            id="files"
+                            class="mt-1 p-2 block w-full"
+                            multiple
+                            webkitdirectory
+                            required
+                        >
 
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition"
+                >
+                    Create Project
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <!-- Delete Account Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="bg-white rounded-2xl p-8 w-full max-w-md m-auto">
+            <div class="text-center mb-6">
+                <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-2xl text-red-600"></i>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">Delete Account</h3>
+                <p class="text-gray-600">Are you sure you want to delete your account? This action cannot be undone.</p>
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button onclick="hideDeleteModal()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    Cancel
+                </button>
+                <button class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
+                    <i class="fas fa-trash-alt mr-2"></i>
+                    Delete Account
+                </button>
+            </div>
+        </div>
+    </div>
     <script>
 
         function toggleMenu() {
@@ -494,5 +621,3 @@ document.getElementById('profilePicUpload').addEventListener('change', function 
 
 </body>
 </html>
-
-
