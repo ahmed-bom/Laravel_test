@@ -158,16 +158,12 @@
                     </form>
 
                     <div class="absolute top-4 right-4">
-                        <button onclick="toggleMenu()" class="p-2 rounded-full bg-white bg-opacity-20 text-white hover:bg-opacity-30">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <div id="settingsMenu" class="hidden absolute right-0 mt-2 w-48 rounded-lg shadow-lg bg-white">
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-cog mr-2"></i>Settings
+
+                        <div id="settingsMenu" class=" absolute right-0  rounded-lg shadow-lg">
+                            <a href="{{ route('profile.edit') }}" class=" mt-2  text-white">
+                                <i class="fas fa-cog mr-2"></i>
                             </a>
-                            <button onclick="showDeleteModal()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">
-                                <i class="fas fa-trash-alt mr-2"></i>Delete Account
-                            </button>
+
                         </div>
                     </div>
                 </div>
