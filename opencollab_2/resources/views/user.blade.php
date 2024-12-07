@@ -206,9 +206,7 @@
         </h3>
         <div class="flex space-x-2">
             <!-- Edit button (direct link to edit page) -->
-            <a href="{{ route('projects.edit', $project->id) }}" class="text-gray-400 hover-edit" title="Edit project">
-                <i class="fas fa-pen"></i>
-            </a>
+
 
             <!-- Delete button (with form) -->
             <form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?');">
@@ -382,7 +380,7 @@
 
         function showDeleteModal() {
             document.getElementById('deleteModal').classList.add('active');
-            document.body.classList.add('modal-open');
+            document.body.classList.add('modal-o');
         }
 
         function hideDeleteModal() {
