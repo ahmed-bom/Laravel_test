@@ -96,9 +96,12 @@
         }
 
         .hover-download:hover {
-            color: #22c55e;
+            color: #595a59;
         }
-
+        .hover-edit:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
         .hover-delete:hover {
             color: #ef4444;
         }
@@ -206,7 +209,13 @@
         </h3>
         <div class="flex space-x-2">
             <!-- Edit button (direct link to edit page) -->
-
+            <button
+            onclick="showEditProjectModal({{ $project->id }}, '{{ $project->project_name }}', '{{ $project->description }}')"
+            class="text-gray-400 hover-edit transition-colors duration-300"
+            title="Edit project"
+        >
+            <i class="fas fa-pen"></i>
+        </button>
 
             <!-- Delete button (with form) -->
             <form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?');">
@@ -362,6 +371,51 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Edit Project Modal -->
+<div id="editProjectModal" class="modal">
+    <div class="modal-content bg-white rounded-2xl w-full max-w-md m-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-gray-900">Edit Project</h3>
+                <button onclick="hideEditProjectModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editProjectForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="mb-4">
+                    <label for="edit_project_name" class="block text-sm font-medium text-gray-700">Project Name:</label>
+                    <input
+                        type="text"
+                        name="project_name"
+                        id="edit_project_name"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <label for="edit_description" class="block text-sm font-medium text-gray-700">Description:</label>
+                    <textarea
+                        name="description"
+                        id="edit_description"
+                        class="mt-1 p-2 block w-full border-2 border-accent-1 rounded-md focus:border-primary focus:ring-0"
+                        required
+                    ></textarea>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition"
+                >
+                    Update Project
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
     <script>
 
         function toggleMenu() {
@@ -646,6 +700,30 @@ document.getElementById('profilePicUpload').addEventListener('change', function 
         }
     });
 
+
+    function showEditProjectModal(projectId, projectName, description) {
+    const modal = document.getElementById('editProjectModal');
+    const form = document.getElementById('editProjectForm');
+    const nameInput = document.getElementById('edit_project_name');
+    const descInput = document.getElementById('edit_description');
+
+    // Set form action dynamically
+    form.action = `/projects/${projectId}`;
+
+    // Populate inputs
+    nameInput.value = projectName;
+    descInput.value = description;
+
+    // Show modal
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function hideEditProjectModal() {
+    const modal = document.getElementById('editProjectModal');
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
     </script>
 
 </body>

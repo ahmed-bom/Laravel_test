@@ -46,5 +46,5 @@ Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('prof
 Route::get('/projects/{projectId}/download', [ProjectController::class, 'downloadFolder'])
     ->name('projects.download');
     Route::post('/profile/upload', [ProfileController::class, 'upload'])->name('profile.upload');
-
+    Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 require __DIR__.'/auth.php';

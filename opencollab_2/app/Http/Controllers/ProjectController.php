@@ -52,13 +52,16 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'project_name' => 'required|string|max:255',
+            'description' => 'required|string',
         ]);
 
-        $project->update($request->only('name', 'description'));
+        $project->update([
+            'project_name' => $request->project_name,
+            'description' => $request->description
+        ]);
 
-        return Redirect::route('projects.edit', $project)->with('status', 'Project updated successfully!');
+        return redirect()->route('user')->with('success', 'Project updated successfully.');
     }
 
 
